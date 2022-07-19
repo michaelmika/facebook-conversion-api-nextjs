@@ -35,6 +35,7 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     currency,
     userAgent,
     sourceUrl,
+    externalId
   } = req.body as Arguments;
 
   if (!eventName || !products || products?.length < 1) {
@@ -54,6 +55,7 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     fbp: getClientFbp(req),
     fbc: getClientFbc(req),
     ipAddress: getClientIpAddress(req),
+    externalId,
     userAgent,
     sourceUrl,
   };

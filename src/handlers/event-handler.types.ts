@@ -1,6 +1,7 @@
 export type Arguments = {
   eventName: string
   eventId: string
+  externalId: string
   emails?: Array<string> | null
   phones?: Array<string> | null
   products: {

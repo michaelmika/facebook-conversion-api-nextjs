@@ -49,6 +49,7 @@ const fbEvent = (event: FBEventType): void => {
     const serverSidePayload = JSON.stringify({
       eventName: event.eventName,
       eventId,
+      externalId: event.externalId,
       emails: event.emails,
       phones: event.phones,
       products: event.products,
