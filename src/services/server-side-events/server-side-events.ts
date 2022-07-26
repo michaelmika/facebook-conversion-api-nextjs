@@ -23,6 +23,7 @@ import { sha256Hash } from '../../utils/hash';
 const sendServerSideEvent = async ({
   eventName,
   eventId,
+  externalId,
   emails,
   phones,
   products,
@@ -33,6 +34,9 @@ const sendServerSideEvent = async ({
   ipAddress,
   userAgent,
   sourceUrl,
+  firstName,
+  lastName,
+  testEventCode
 }: Arguments): Promise<Response> => {
   const formData = new FormData();
 
@@ -47,6 +51,13 @@ const sendServerSideEvent = async ({
     user_data: {
       client_ip_address: ipAddress,
       client_user_agent: userAgent,
+      external_id: sha256Hash(externalId),
+      ...(firstName && {
+        fn: sha256Hash(firstName),
+      }),
+      ...(lastName && {
+        ln: sha256Hash(lastName),
+      }),
       ...(emails && emails?.length > 0 && {
         em: emails.map((email) => (sha256Hash(email))),
       }),
@@ -56,9 +67,9 @@ const sendServerSideEvent = async ({
       fbc,
       fbp,
     },
-    contents: products.map((product) => (
+    contents: products ? products.map((product) => (
       { id: product.sku, quantity: product.quantity }
-    )),
+    )) : [],
     custom_data: {
       ...(value && { value }),
       ...(currency && { currency }),
@@ -66,6 +77,8 @@ const sendServerSideEvent = async ({
   }];
 
   formData.append('data', JSON.stringify(eventData));
+  if(testEventCode)
+    formData.append('test_event_code', testEventCode);
   formData.append('access_token', process.env.FB_ACCESS_TOKEN ?? '');
 
   return graphApi({

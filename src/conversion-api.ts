@@ -31,9 +31,9 @@ const fbEvent = (event: FBEventType): void => {
   if (event.enableStandardPixel) {
     const clientSidePayload = {
       content_type: 'product',
-      contents: event.products.map((product) => (
+      contents: event.products ? event.products.map((product) => (
         { id: product.sku, quantity: product.quantity }
-      )),
+      )) : [],
       ...(event.value && { value: event.value }),
       ...(event.currency && { currency: event.currency }),
     };
@@ -55,6 +55,9 @@ const fbEvent = (event: FBEventType): void => {
       products: event.products,
       value: event.value,
       currency: event.currency,
+      firstName: event.firstName,
+      lastName: event.lastName,
+      testEventCode: event.testEventCode,
       userAgent: navigator.userAgent,
       sourceUrl: window.location.href,
     });

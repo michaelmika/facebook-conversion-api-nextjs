@@ -49,7 +49,7 @@ const sendServerSideEvent = ({ eventName, eventId, emails, phones, products, val
                 ph: phones.map((phone) => ((0, hash_1.sha256Hash)(phone))),
             })), { fbc,
                 fbp }),
-            contents: products.map((product) => ({ id: product.sku, quantity: product.quantity })),
+            contents: products ? products.map((product) => ({ id: product.sku, quantity: product.quantity })) : [],
             custom_data: Object.assign(Object.assign({}, (value && { value })), (currency && { currency })),
         }];
     formData.append('data', JSON.stringify(eventData));

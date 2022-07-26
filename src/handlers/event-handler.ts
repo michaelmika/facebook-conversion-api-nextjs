@@ -35,10 +35,13 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     currency,
     userAgent,
     sourceUrl,
-    externalId
+    externalId,
+    firstName,
+    lastName,
+    testEventCode
   } = req.body as Arguments;
 
-  if (!eventName || !products || products?.length < 1) {
+  if (!eventName) {
     return res.status(400).json({
       error: 'The request body is missing required parameters',
     });
@@ -58,6 +61,9 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     externalId,
     userAgent,
     sourceUrl,
+    firstName,
+    lastName,
+    testEventCode
   };
 
   const response = await sendServerSideEvent(payload);

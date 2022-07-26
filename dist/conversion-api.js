@@ -25,7 +25,7 @@ exports.fbPageView = fbPageView;
 const fbEvent = (event) => {
     const eventId = event.eventId ? event.eventId : (0, uuid_1.v4)();
     if (event.enableStandardPixel) {
-        const clientSidePayload = Object.assign(Object.assign({ content_type: 'product', contents: event.products.map((product) => ({ id: product.sku, quantity: product.quantity })) }, (event.value && { value: event.value })), (event.currency && { currency: event.currency }));
+        const clientSidePayload = Object.assign(Object.assign({ content_type: 'product', contents: event.products ? event.products.map((product) => ({ id: product.sku, quantity: product.quantity })) : [] }, (event.value && { value: event.value })), (event.currency && { currency: event.currency }));
         window.fbq('track', event.eventName, clientSidePayload, { eventID: eventId });
         (0, debug_1.default)(`Client Side Event: ${event.eventName}`);
         (0, debug_1.default)(`Client Side Payload: ${JSON.stringify(clientSidePayload)}`);

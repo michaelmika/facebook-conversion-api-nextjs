@@ -44,7 +44,7 @@ const sendServerSideEvent = ({ eventName, eventId, emails, phones, products, val
             action_source: 'website',
             user_data: Object.assign(Object.assign(Object.assign({ client_ip_address: ipAddress, client_user_agent: userAgent }, (emails && (emails === null || emails === void 0 ? void 0 : emails.length) > 0 && { em: emails })), (phones && (phones === null || phones === void 0 ? void 0 : phones.length) > 0 && { ph: phones })), { fbc,
                 fbp }),
-            contents: products.map((product) => ({ id: product.sku, quantity: product.quantity })),
+            contents: products ? products.map((product) => ({ id: product.sku, quantity: product.quantity })) : [],
             custom_data: Object.assign(Object.assign({}, (value && { value })), (currency && { currency })),
         }];
     formData.append('data', JSON.stringify(eventData));

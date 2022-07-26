@@ -4,7 +4,7 @@ export type Arguments = {
   externalId: string
   emails?: Array<string> | null
   phones?: Array<string> | null
-  products: {
+  products?: {
     sku: string
     quantity: number
   }[]
@@ -12,4 +12,7 @@ export type Arguments = {
   currency?: string
   userAgent: string
   sourceUrl: string
+  testEventCode?: string
+  firstName?: string
+  lastName?: string
 };
