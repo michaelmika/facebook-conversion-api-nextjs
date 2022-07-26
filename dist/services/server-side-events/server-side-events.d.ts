@@ -4,6 +4,7 @@ import { Arguments, Response } from './server-side-events.types';
  *
  * @param eventName
  * @param eventId
+ * @param externalId
  * @param emails
  * @param phones
  * @param products
@@ -14,7 +15,10 @@ import { Arguments, Response } from './server-side-events.types';
  * @param ipAddress
  * @param userAgent
  * @param sourceUrl
+ * @param firstName
+ * @param lastName
+ * @param testEventCode
  * @constructor
  */
-declare const sendServerSideEvent: ({ eventName, eventId, emails, phones, products, value, currency, fbc, fbp, ipAddress, userAgent, sourceUrl, }: Arguments) => Promise<Response>;
+declare const sendServerSideEvent: ({ eventName, eventId, externalId, emails, phones, products, value, currency, fbc, fbp, ipAddress, userAgent, sourceUrl, firstName, lastName, testEventCode, }: Arguments) => Promise<Response>;
 export { sendServerSideEvent, };

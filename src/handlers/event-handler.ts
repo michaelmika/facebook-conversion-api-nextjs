@@ -38,7 +38,7 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     externalId,
     firstName,
     lastName,
-    testEventCode
+    testEventCode,
   } = req.body as Arguments;
 
   if (!eventName) {
@@ -63,7 +63,7 @@ const eventHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     sourceUrl,
     firstName,
     lastName,
-    testEventCode
+    testEventCode,
   };
 
   const response = await sendServerSideEvent(payload);

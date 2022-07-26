@@ -21,6 +21,7 @@ const hash_1 = require("../../utils/hash");
  *
  * @param eventName
  * @param eventId
+ * @param externalId
  * @param emails
  * @param phones
  * @param products
@@ -31,9 +32,12 @@ const hash_1 = require("../../utils/hash");
  * @param ipAddress
  * @param userAgent
  * @param sourceUrl
+ * @param firstName
+ * @param lastName
+ * @param testEventCode
  * @constructor
  */
-const sendServerSideEvent = ({ eventName, eventId, emails, phones, products, value, currency, fbc, fbp, ipAddress, userAgent, sourceUrl, }) => __awaiter(void 0, void 0, void 0, function* () {
+const sendServerSideEvent = ({ eventName, eventId, externalId, emails, phones, products, value, currency, fbc, fbp, ipAddress, userAgent, sourceUrl, firstName, lastName, testEventCode, }) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const formData = new form_data_1.default();
     const unixTimestampInSeconds = Math.floor(Date.now() / 1000);
@@ -43,7 +47,11 @@ const sendServerSideEvent = ({ eventName, eventId, emails, phones, products, val
             event_id: eventId,
             event_source_url: sourceUrl,
             action_source: 'website',
-            user_data: Object.assign(Object.assign(Object.assign({ client_ip_address: ipAddress, client_user_agent: userAgent }, (emails && (emails === null || emails === void 0 ? void 0 : emails.length) > 0 && {
+            user_data: Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ client_ip_address: ipAddress, client_user_agent: userAgent, external_id: (0, hash_1.sha256Hash)(externalId) }, (firstName && {
+                fn: (0, hash_1.sha256Hash)(firstName),
+            })), (lastName && {
+                ln: (0, hash_1.sha256Hash)(lastName),
+            })), (emails && (emails === null || emails === void 0 ? void 0 : emails.length) > 0 && {
                 em: emails.map((email) => ((0, hash_1.sha256Hash)(email))),
             })), (phones && (phones === null || phones === void 0 ? void 0 : phones.length) > 0 && {
                 ph: phones.map((phone) => ((0, hash_1.sha256Hash)(phone))),
@@ -53,6 +61,9 @@ const sendServerSideEvent = ({ eventName, eventId, emails, phones, products, val
             custom_data: Object.assign(Object.assign({}, (value && { value })), (currency && { currency })),
         }];
     formData.append('data', JSON.stringify(eventData));
+    if (testEventCode) {
+        formData.append('test_event_code', testEventCode);
+    }
     formData.append('access_token', (_a = process.env.FB_ACCESS_TOKEN) !== null && _a !== void 0 ? _a : '');
     return (0, graph_1.default)({
         endpoint: 'events',

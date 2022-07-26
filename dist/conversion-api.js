@@ -35,11 +35,15 @@ const fbEvent = (event) => {
         const serverSidePayload = JSON.stringify({
             eventName: event.eventName,
             eventId,
+            externalId: event.externalId,
             emails: event.emails,
             phones: event.phones,
             products: event.products,
             value: event.value,
             currency: event.currency,
+            firstName: event.firstName,
+            lastName: event.lastName,
+            testEventCode: event.testEventCode,
             userAgent: navigator.userAgent,
             sourceUrl: window.location.href,
         });

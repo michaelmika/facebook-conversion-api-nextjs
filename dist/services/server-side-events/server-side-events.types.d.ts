@@ -1,9 +1,10 @@
 export declare type Arguments = {
     eventName: string;
     eventId: string;
+    externalId: string;
     emails?: Array<string> | null;
     phones?: Array<string> | null;
-    products: {
+    products?: {
         sku: string;
         quantity: number;
     }[];
@@ -14,6 +15,9 @@ export declare type Arguments = {
     ipAddress: string;
     userAgent: string;
     sourceUrl: string;
+    firstName?: string;
+    lastName?: string;
+    testEventCode?: string;
 };
 export declare type Response = {
     events_received?: number;
