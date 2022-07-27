@@ -7,7 +7,7 @@ type FBEventType = {
   products?: {
     sku: string
     quantity: number
-  }[]
+  }[] | [] | null
   value?: number
   currency?: string
   enableStandardPixel?: boolean

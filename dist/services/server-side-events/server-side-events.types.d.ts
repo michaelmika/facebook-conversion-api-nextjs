@@ -7,7 +7,7 @@ export declare type Arguments = {
     products?: {
         sku: string;
         quantity: number;
-    }[];
+    }[] | [] | null;
     value?: number;
     currency?: string;
     fbp: string;

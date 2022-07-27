@@ -26,7 +26,6 @@ const fbPageView = (): void => {
  * @constructor
  */
 const fbEvent = (event: FBEventType): void => {
-  debug(JSON.stringify(event));
   const eventId = event.eventId ? event.eventId : uuidv4();
 
   if (event.enableStandardPixel) {
@@ -63,7 +62,6 @@ const fbEvent = (event: FBEventType): void => {
       userAgent: navigator.userAgent,
       sourceUrl: window.location.href,
     });
-    debug(serverSidePayload);
     fetch('/api/fb-events', {
       method: 'POST',
       headers: {

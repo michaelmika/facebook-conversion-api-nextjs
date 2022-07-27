@@ -7,7 +7,7 @@ export type Arguments = {
   products?: {
     sku: string
     quantity: number
-  }[]
+  }[] | [] | null
   value?: number
   currency?: string
   userAgent: string
