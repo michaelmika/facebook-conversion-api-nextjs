@@ -23,6 +23,7 @@ exports.fbPageView = fbPageView;
  * @constructor
  */
 const fbEvent = (event) => {
+    console.log('event', Object.assign({}, event));
     const eventId = event.eventId ? event.eventId : (0, uuid_1.v4)();
     if (event.enableStandardPixel) {
         const clientSidePayload = Object.assign(Object.assign({ content_type: 'product', contents: event.products ? event.products.map((product) => ({ id: product.sku, quantity: product.quantity })) : [] }, (event.value && { value: event.value })), (event.currency && { currency: event.currency }));
@@ -32,6 +33,7 @@ const fbEvent = (event) => {
         (0, debug_1.default)(`Client Side Event ID: ${eventId}`);
     }
     setTimeout(() => {
+        console.log('event2', Object.assign({}, event));
         const serverSidePayload = JSON.stringify({
             eventName: event.eventName,
             eventId,
@@ -47,6 +49,7 @@ const fbEvent = (event) => {
             userAgent: navigator.userAgent,
             sourceUrl: window.location.href,
         });
+        console.log('payload', serverSidePayload);
         fetch('/api/fb-events', {
             method: 'POST',
             headers: {

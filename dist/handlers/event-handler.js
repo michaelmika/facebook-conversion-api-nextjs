@@ -32,7 +32,7 @@ const eventHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         throw new Error('Missing NEXT_PUBLIC_FB_PIXEL_ID in environment file.');
     }
     const { eventName, eventId, emails, phones, products, value, currency, userAgent, sourceUrl, externalId, firstName, lastName, testEventCode, } = req.body;
-    if (!eventName) {
+    if (!eventName || !externalId || !eventId) {
         return res.status(400).json({
             error: 'The request body is missing required parameters',
         });
